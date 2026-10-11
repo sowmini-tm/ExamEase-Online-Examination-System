@@ -3,52 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Examination System - Student Portal</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>ExamEase | Student Sign In</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f3f6fb;
+            color: #182944;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .login-layout {
+            width: 100%;
+            max-width: 1050px;
+            min-height: 600px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 24px 70px rgba(24, 41, 68, 0.12);
+        }
+
+        .welcome-panel {
+            background: linear-gradient(145deg, #132541, #087f83);
+            color: white;
+            padding: 55px 42px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .brand span { color: #54e2ce; }
+
+        .welcome-content { margin: 55px 0; }
+
+        .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: #70ead9;
+        }
+
+        .welcome-content h1 {
+            font-size: clamp(32px, 4vw, 45px);
+            line-height: 1.15;
+            margin: 18px 0;
+        }
+
+        .welcome-content p {
+            color: #d4e6ef;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .feature {
+            padding: 15px 0;
+            border-top: 1px solid rgba(255,255,255,.2);
+            color: #e5f5f5;
+            font-size: 14px;
+        }
+
+        .form-panel {
+            padding: 55px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-panel h2 {
+            font-size: 30px;
+            margin: 0 0 10px;
+        }
+
+        .subtitle {
+            color: #718099;
+            margin: 0 0 32px;
+            line-height: 1.6;
+        }
+
+        label {
+            display: block;
+            margin: 19px 0 8px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d8e0ec;
+            border-radius: 10px;
+            background: #fbfcfe;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #087f83;
+            box-shadow: 0 0 0 3px rgba(8,127,131,.12);
+        }
+
+        button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #087f83;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s, transform .2s;
+        }
+
+        button:hover {
+            background: #06676b;
+            transform: translateY(-1px);
+        }
+
+        #errorMessage {
+            color: #c62828;
+            font-size: 14px;
+            min-height: 18px;
+            margin-bottom: 0;
+        }
+
+        .security-note {
+            margin-top: 25px;
+            text-align: center;
+            color: #718099;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 720px) {
+            body { padding: 12px; }
+            .login-layout { grid-template-columns: 1fr; }
+            .welcome-panel { padding: 30px; }
+            .welcome-content { margin: 35px 0; }
+            .form-panel { padding: 35px 28px; }
+        }
+    </style>
 </head>
-
 <body>
+    <main class="login-layout">
+        <section class="welcome-panel">
+            <div class="brand">Exam<span>Ease</span></div>
 
-    <div class="login-container">
+            <div class="welcome-content">
+                <div class="eyebrow">YOUR LEARNING JOURNEY</div>
+                <h1>Knowledge grows with every attempt.</h1>
+                <p>
+                    Prepare for assessments, practise important concepts,
+                    and track your learning journey in one place.
+                </p>
+            </div>
 
-        <div class="login-box">
+            <div>
+                <div class="feature">✓ &nbsp; Organised online assessments</div>
+                <div class="feature">✓ &nbsp; Topic-based practice sessions</div>
+                <div class="feature">✓ &nbsp; Instant examination results</div>
+            </div>
+        </section>
 
-            <h1>Student Examination Portal</h1>
-            <p class="subtitle">Login to continue your examination</p>
+        <section class="form-panel">
+            <h2>Welcome back</h2>
+            <p class="subtitle">Sign in with your student credentials to continue.</p>
 
             <form id="loginForm">
-
                 <label for="username">Student ID</label>
                 <input
                     type="text"
                     id="username"
-                    placeholder="Enter your Student ID"
+                    name="username"
+                    placeholder="Enter your student ID"
+                    autocomplete="username"
+                    required
                 >
 
                 <label for="password">Password</label>
                 <input
                     type="password"
                     id="password"
+                    name="password"
                     placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
                 >
 
-                <p id="errorMessage"></p>
+                <p id="errorMessage" role="alert"></p>
 
-                <button type="submit">Sign In</button>
-
+                <button type="submit">Sign in to ExamEase →</button>
             </form>
 
-            <p class="forgot-password">Forgot your password?</p>
-
-            <p class="portal-info">
-                Secure Online Examination System
+            <p class="security-note">
+                Secure student portal<br>
+                ExamEase · Learn. Practise. Improve.
             </p>
-
-        </div>
-
-    </div>
+        </section>
+    </main>
 
     <script src="js/login.js"></script>
-
 </body>
 </html>

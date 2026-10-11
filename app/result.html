@@ -3,66 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exam Result</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>ExamEase | Examination Results</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f3f6fb;
+            color: #182944;
+        }
+
+        header {
+            background: #132541;
+            padding: 20px 6%;
+            color: white;
+        }
+
+        .brand { font-size: 25px; font-weight: 800; }
+        .brand span { color: #54e2ce; }
+
+        main {
+            max-width: 850px;
+            margin: 45px auto;
+            padding: 0 20px;
+        }
+
+        .result-card {
+            background: white;
+            border: 1px solid #e1e8f1;
+            border-radius: 22px;
+            padding: 38px;
+            box-shadow: 0 15px 45px rgba(30, 50, 80, .07);
+        }
+
+        .eyebrow {
+            color: #087f83;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        h1 { font-size: 32px; margin: 12px 0; }
+
+        .subtitle {
+            color: #718099;
+            line-height: 1.6;
+        }
+
+        .result-banner {
+            margin: 28px 0;
+            padding: 24px;
+            background: #e8f7f5;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .result-banner p { color: #17625f; margin: 0 0 10px; }
+
+        #status {
+            font-size: 28px;
+            font-weight: 800;
+            color: #087f83;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .metric {
+            border: 1px solid #e1e8f1;
+            padding: 22px;
+            border-radius: 14px;
+        }
+
+        .metric-label {
+            color: #718099;
+            font-size: 14px;
+        }
+
+        .metric-value {
+            display: block;
+            font-size: 27px;
+            font-weight: 800;
+            margin-top: 10px;
+            overflow-wrap: anywhere;
+        }
+
+        .student-info {
+            margin-top: 22px;
+            padding: 16px 18px;
+            background: #f7f9fc;
+            border-radius: 12px;
+        }
+
+        .student-info p { margin: 5px 0; }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .button {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 20px;
+            background: #087f83;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .button.secondary {
+            background: #edf2f8;
+            color: #243954;
+        }
+
+        .button:hover { opacity: .9; }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #718099;
+            font-size: 12px;
+        }
+
+        @media (max-width: 520px) {
+            main { margin: 25px auto; padding: 0 12px; }
+            .result-card { padding: 24px 18px; }
+            h1 { font-size: 27px; }
+            .result-grid { grid-template-columns: 1fr; }
+            .actions .button { width: 100%; }
+        }
+    </style>
 </head>
-
 <body>
+    <header>
+        <div class="brand">Exam<span>Ease</span></div>
+    </header>
 
-    <div class="login-container">
+    <main>
+        <section class="result-card">
+            <div class="eyebrow">ASSESSMENT SUMMARY</div>
+            <h1>Your examination result</h1>
+            <p class="subtitle">
+                Here is the summary of your Online Programming Test.
+            </p>
 
-        <div class="login-box">
-
-            <h1>Exam Result</h1>
-
-            <p class="subtitle">Online Programming Test</p>
-
-            <div class="dashboard-info">
-
-                <p>
-                    <strong>Student ID:</strong> student
-                </p>
-
-                <p>
-                    <strong>Score:</strong>
-                    <span id="score"></span>
-                </p>
-
-                <p>
-                    <strong>Percentage:</strong>
-                    <span id="percentage"></span>
-                </p>
-
-                <p>
-                    <strong>Status:</strong>
-                    <span id="status"></span>
-                </p>
-
+            <div class="result-banner">
+                <p>EXAMINATION STATUS</p>
+                <div id="status">Calculating...</div>
             </div>
 
-            <button onclick="window.location.href='dashboard.html'">
-                Back to Dashboard
-            </button>
+            <div class="result-grid">
+                <article class="metric">
+                    <div class="metric-label">Your Score</div>
+                    <strong class="metric-value" id="score">—</strong>
+                </article>
 
-        </div>
+                <article class="metric">
+                    <div class="metric-label">Percentage</div>
+                    <strong class="metric-value" id="percentage">—</strong>
+                </article>
+            </div>
 
-    </div>
+            <div class="student-info">
+                <p><strong>Student ID:</strong> student</p>
+                <p><strong>Assessment:</strong> Online Programming Test</p>
+            </div>
+
+            <div class="actions">
+                <a class="button" href="dashboard.html">Back to Dashboard</a>
+                <a class="button secondary" href="practice.html">Practise More</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>ExamEase · Learn. Practise. Improve.</footer>
 
     <script>
-        const score = Number(localStorage.getItem("examScore"));
-        const total = Number(localStorage.getItem("totalQuestions"));
+        const storedScore = localStorage.getItem("examScore");
+        const storedTotal = localStorage.getItem("totalQuestions");
 
-        const percentage = (score / total) * 100;
+        const score = Number(storedScore);
+        const total = Number(storedTotal);
 
-        document.getElementById("score").textContent =
-            score + " / " + total;
+        const validResult =
+            storedScore !== null &&
+            storedTotal !== null &&
+            Number.isFinite(score) &&
+            Number.isFinite(total) &&
+            total > 0 &&
+            score >= 0 &&
+            score <= total;
 
-        document.getElementById("percentage").textContent =
-            percentage + "%";
+        if (validResult) {
+            const percentage = Math.round((score / total) * 100);
 
-        document.getElementById("status").textContent =
-            percentage >= 40 ? "PASS" : "FAIL";
+            document.getElementById("score").textContent =
+                score + " / " + total;
+
+            document.getElementById("percentage").textContent =
+                percentage + "%";
+
+            const statusElement = document.getElementById("status");
+            statusElement.textContent = percentage >= 40 ? "PASS" : "FAIL";
+
+            if (percentage < 40) {
+                document.querySelector(".result-banner").style.background = "#fff0f0";
+                statusElement.style.color = "#c62828";
+            }
+        } else {
+            document.getElementById("score").textContent = "Not available";
+            document.getElementById("percentage").textContent = "—";
+            document.getElementById("status").textContent = "No result found";
+        }
     </script>
-
 </body>
 </html>

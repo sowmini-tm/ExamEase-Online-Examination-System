@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice Zone | ExamEase</title>
+<style>
+:root {
+    --navy: #14233f;
+    --teal: #0d9488;
+    --light: #f3f7fb;
+    --muted: #718096;
+    --border: #e2e8f0;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--light);
+    color: var(--navy);
+}
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 6%;
+    background: white;
+    border-bottom: 1px solid var(--border);
+}
+.brand { font-size: 23px; font-weight: 800; }
+.brand span { color: var(--teal); }
+.topbar a {
+    text-decoration: none;
+    color: var(--navy);
+    font-weight: 600;
+}
+.container { max-width: 1120px; margin: 35px auto; padding: 0 22px 40px; }
+.hero {
+    padding: 38px;
+    border-radius: 22px;
+    color: white;
+    background: linear-gradient(120deg, #14233f, #0d9488);
+    margin-bottom: 30px;
+}
+.eyebrow { font-size: 12px; letter-spacing: 2px; font-weight: 700; opacity: .85; }
+.hero h1 { font-size: clamp(28px, 4vw, 40px); margin: 14px 0; }
+.hero p { max-width: 650px; line-height: 1.7; color: #e0f2f1; }
+.section-heading { margin: 30px 0 18px; }
+.subjects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 8px 25px #14233f08;
+}
+.subject-icon {
+    width: 52px; height: 52px; border-radius: 15px;
+    display: grid; place-items: center; font-size: 25px;
+    background: #ccfbf1; margin-bottom: 18px;
+}
+.card h3 { margin: 0 0 10px; }
+.card p { color: var(--muted); line-height: 1.6; min-height: 48px; }
+button {
+    border: 0; border-radius: 10px; padding: 12px 17px;
+    background: var(--teal); color: white; font-weight: 700;
+    cursor: pointer; font-size: 14px;
+}
+button:hover { background: #0f766e; }
+button:disabled { opacity: .45; cursor: not-allowed; }
+.quiz {
+    display: none; background: white; border: 1px solid var(--border);
+    border-radius: 20px; padding: 28px; margin-top: 28px;
+}
+.quiz-meta { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 14px; }
+.progress { height: 7px; background: #e2e8f0; border-radius: 20px; margin: 18px 0 25px; overflow: hidden; }
+.progress-bar { height: 100%; width: 0; background: var(--teal); transition: width .2s; }
+#question { font-size: 22px; line-height: 1.5; }
+.option {
+    display: block; width: 100%; text-align: left; margin: 12px 0;
+    background: white; color: var(--navy); border: 1px solid var(--border);
+    padding: 15px; border-radius: 12px;
+}
+.option:hover { background: #f0fdfa; border-color: var(--teal); }
+.option.correct { background: #dcfce7; border-color: #16a34a; color: #166534; }
+.option.wrong { background: #fee2e2; border-color: #dc2626; color: #991b1b; }
+#feedback { min-height: 25px; margin: 18px 0; font-weight: 600; }
+.quiz-actions { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.secondary { background: #e8eef5; color: var(--navy); }
+.secondary:hover { background: #dbe5ef; }
+.note { color: var(--muted); font-size: 13px; margin-top: 24px; }
+@media(max-width: 800px) {
+    .subjects { grid-template-columns: 1fr; }
+    .card p { min-height: 0; }
+    .hero { padding: 26px; }
+    .quiz { padding: 20px; }
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+    <div class="brand">Exam<span>Ease</span></div>
+    <a href="dashboard.html">← Back to Dashboard</a>
+</header>
+
+<main class="container">
+    <section class="hero">
+        <div class="eyebrow">EXAMEASE / LEARNING SPACE</div>
+        <h1>Practice. Improve. Succeed.</h1>
+        <p>Strengthen your concepts with quick quizzes in programming, database systems, and computer networks. Learn from each answer and track your progress.</p>
+    </section>
+
+    <h2 class="section-heading">Choose your learning path</h2>
+    <section class="subjects">
+        <article class="card">
+            <div class="subject-icon">💻</div>
+            <h3>Programming</h3>
+            <p>Review Java fundamentals, data types, and programming concepts.</p>
+            <button onclick="startPractice('Programming')">Start practice →</button>
+        </article>
+        <article class="card">
+            <div class="subject-icon">🗄️</div>
+            <h3>Database Systems</h3>
+            <p>Practice SQL commands, database keys, and basic operations.</p>
+            <button onclick="startPractice('Database Systems')">Start practice →</button>
+        </article>
+        <article class="card">
+            <div class="subject-icon">🌐</div>
+            <h3>Computer Networks</h3>
+            <p>Review network devices, protocols, and internet fundamentals.</p>
+            <button onclick="startPractice('Computer Networks')">Start practice →</button>
+        </article>
+    </section>
+
+    <section class="quiz" id="quiz">
+        <div class="quiz-meta">
+            <span id="subject-label">Practice session</span>
+            <span id="question-count">Question 1</span>
+        </div>
+        <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+        <h2 id="question"></h2>
+        <div id="options"></div>
+        <p id="feedback" aria-live="polite"></p>
+        <div class="quiz-actions">
+            <button class="secondary" onclick="chooseAnotherSubject()">Choose another subject</button>
+            <button id="next-button" onclick="nextQuestion()" disabled>Next question →</button>
+        </div>
+    </section>
+
+    <p class="note">Practice quizzes are for learning and revision. Your answers are not submitted as formal exam results.</p>
+</main>
+
+<script>
+const questionSets = {
+    "Programming": [
+        { question: "Which keyword is used to define a class in Java?", options: ["function", "class", "define", "struct"], answer: 1 },
+        { question: "Which data type stores true or false values in Java?", options: ["int", "String", "boolean", "char"], answer: 2 },
+        { question: "Which symbol terminates a typical Java statement?", options: [":", ";", ",", "."], answer: 1 }
+    ],
+    "Database Systems": [
+        { question: "Which SQL command retrieves data from a table?", options: ["GET", "OPEN", "SELECT", "FETCH ALL"], answer: 2 },
+        { question: "Which key uniquely identifies a row in a table?", options: ["Foreign key", "Primary key", "Duplicate key", "Index only"], answer: 1 },
+        { question: "Which SQL command adds a new row?", options: ["INSERT", "UPDATE", "ALTER", "DROP"], answer: 0 }
+    ],
+    "Computer Networks": [
+        { question: "Which protocol is commonly used to load secure websites?", options: ["FTP", "HTTPS", "SMTP", "Telnet"], answer: 1 },
+        { question: "Which device forwards packets between networks?", options: ["Keyboard", "Router", "Monitor", "Scanner"], answer: 1 },
+        { question: "What does IP stand for?", options: ["Internet Protocol", "Internal Program", "Information Port", "Interface Process"], answer: 0 }
+    ]
+};
+
+let currentSubject = "";
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+function startPractice(subject) {
+    currentSubject = subject;
+    currentQuestion = 0;
+    score = 0;
+    document.getElementById("quiz").style.display = "block";
+    document.getElementById("subject-label").textContent = subject;
+    document.getElementById("quiz").scrollIntoView({ behavior: "smooth", block: "start" });
+    showQuestion();
+}
+
+function showQuestion() {
+    const item = questionSets[currentSubject][currentQuestion];
+    const total = questionSets[currentSubject].length;
+
+    answered = false;
+    document.getElementById("question-count").textContent =
+        "Question " + (currentQuestion + 1) + " of " + total;
+    document.getElementById("progress-bar").style.width =
+        (currentQuestion / total * 100) + "%";
+    document.getElementById("question").textContent = item.question;
+    document.getElementById("feedback").textContent = "";
+    document.getElementById("next-button").disabled = true;
+    document.getElementById("next-button").textContent =
+        currentQuestion === total - 1 ? "View results →" : "Next question →";
+
+    const options = document.getElementById("options");
+    options.replaceChildren();
+
+    item.options.forEach(function(option, index) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "option";
+        button.textContent = String.fromCharCode(65 + index) + ". " + option;
+        button.addEventListener("click", function() {
+            selectAnswer(index, button);
+        });
+        options.appendChild(button);
+    });
+}
+
+function selectAnswer(index, selectedButton) {
+    if (answered) return;
+    answered = true;
+
+    const item = questionSets[currentSubject][currentQuestion];
+    const buttons = document.querySelectorAll("#options .option");
+
+    buttons.forEach(function(button, i) {
+        button.disabled = true;
+        if (i === item.answer) button.classList.add("correct");
+    });
+
+    if (index === item.answer) {
+        score++;
+        document.getElementById("feedback").textContent = "Correct! Great work.";
+        document.getElementById("feedback").style.color = "#15803d";
+    } else {
+        selectedButton.classList.add("wrong");
+        document.getElementById("feedback").textContent =
+            "Not quite. The correct answer is " + item.options[item.answer] + ".";
+        document.getElementById("feedback").style.color = "#b91c1c";
+    }
+
+    document.getElementById("next-button").disabled = false;
+}
+
+function nextQuestion() {
+    if (!answered) return;
+
+    if (currentQuestion < questionSets[currentSubject].length - 1) {
+        currentQuestion++;
+        showQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    const total = questionSets[currentSubject].length;
+    const percentage = Math.round(score / total * 100);
+
+    document.getElementById("question-count").textContent = "Practice completed";
+    document.getElementById("progress-bar").style.width = "100%";
+    document.getElementById("question").textContent = "Your practice results";
+    document.getElementById("options").replaceChildren();
+
+    document.getElementById("feedback").style.color = "#14233f";
+    document.getElementById("feedback").textContent =
+        "Score: " + score + " / " + total + "  •  Accuracy: " + percentage + "%";
+
+    document.getElementById("next-button").disabled = true;
+    document.getElementById("next-button").textContent = "Practice completed";
+}
+
+function chooseAnotherSubject() {
+    document.getElementById("quiz").style.display = "none";
+    document.querySelector(".section-heading").scrollIntoView({ behavior: "smooth" });
+}
+</script>
+</body>
+</html>

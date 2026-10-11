@@ -3,46 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>ExamEase | Learning Dashboard</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f3f6fb;
+            color: #17243b;
+        }
+        .layout { display: flex; min-height: 100vh; }
+        .sidebar {
+            width: 245px;
+            background: #13233f;
+            color: white;
+            padding: 28px 18px;
+            display: flex;
+            flex-direction: column;
+        }
+        .brand { font-size: 25px; font-weight: 800; margin: 0 0 8px; }
+        .brand span { color: #45d6c3; }
+        .tagline { color: #aab9d1; font-size: 13px; margin-bottom: 36px; }
+        .nav-label {
+            color: #91a4c1;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            margin: 12px 10px;
+        }
+        .nav-link {
+            display: block;
+            color: #dce6f5;
+            text-decoration: none;
+            padding: 13px 12px;
+            border-radius: 10px;
+            margin-bottom: 6px;
+        }
+        .nav-link:hover, .nav-link.active {
+            background: #253b5e;
+            color: #64ead8;
+        }
+        .sidebar-bottom { margin-top: auto; }
+        .main { flex: 1; min-width: 0; padding: 30px 4%; }
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        .topbar p { color: #718099; margin: 6px 0 0; }
+        .profile {
+            background: white;
+            padding: 11px 16px;
+            border-radius: 12px;
+            border: 1px solid #e3e9f2;
+        }
+        .hero {
+            background: linear-gradient(120deg, #17365f, #087f83);
+            color: white;
+            border-radius: 22px;
+            padding: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .hero h2 { font-size: clamp(25px, 3vw, 36px); margin: 10px 0; }
+        .hero p { color: #d7f5f1; line-height: 1.6; }
+        .eyebrow { font-size: 12px; letter-spacing: 2px; font-weight: 700; }
+        .button {
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+            border: 0;
+            cursor: pointer;
+            border-radius: 10px;
+            padding: 12px 18px;
+            font-weight: 700;
+            background: #41ddc4;
+            color: #102b43;
+        }
+        .section-title { margin: 30px 0 16px; font-size: 21px; }
+        .stats, .modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 18px;
+        }
+        .stat, .module {
+            background: white;
+            padding: 22px;
+            border: 1px solid #e4eaf3;
+            border-radius: 17px;
+            box-shadow: 0 5px 18px rgba(30, 50, 80, .04);
+        }
+        .stat-label { color: #728099; font-size: 14px; }
+        .stat-number { font-size: 29px; font-weight: 800; margin: 12px 0 5px; }
+        .stat-note { color: #087f83; font-size: 13px; }
+        .module-icon { font-size: 27px; }
+        .module h3 { margin-bottom: 8px; }
+        .module p { color: #728099; line-height: 1.6; min-height: 45px; }
+        .module a {
+            color: #087f83;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .exam-panel {
+            margin-top: 22px;
+            background: white;
+            border: 1px solid #e4eaf3;
+            border-radius: 17px;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .exam-panel p { color: #728099; }
+        .logout {
+            background: transparent;
+            color: #ffb9bd;
+            border: 1px solid #53647e;
+            width: 100%;
+        }
+        @media (max-width: 700px) {
+            .layout { flex-direction: column; }
+            .sidebar { width: 100%; padding: 20px; }
+            .sidebar-bottom { margin-top: 20px; }
+            .main { padding: 20px 16px; }
+            .hero { padding: 24px; }
+        }
+    </style>
 </head>
-
 <body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="brand">Exam<span>Ease</span></div>
+        <div class="tagline">LEARN · PRACTISE · IMPROVE</div>
 
-    <div class="login-container">
+        <div class="nav-label">WORKSPACE</div>
+        <a class="nav-link active" href="dashboard.html">▦ &nbsp; Overview</a>
+        <a class="nav-link" href="practice.html">◎ &nbsp; Practice Zone</a>
+        <a class="nav-link" href="exam.html">▤ &nbsp; Take an Exam</a>
+        <a class="nav-link" href="result.html">◷ &nbsp; Exam Results</a>
 
-        <div class="login-box">
-
-            <h1>Student Dashboard</h1>
-
-            <p class="subtitle">Welcome, Student!</p>
-
-            <div class="dashboard-info">
-                <p><strong>Student ID:</strong> student</p>
-                <p><strong>Exam:</strong> Online Programming Test</p>
-                <p><strong>Questions:</strong> 5</p>
-                <p><strong>Duration:</strong> 5 Minutes</p>
-            </div>
-
-            <button onclick="startExam()">Start Exam</button>
-
-            <button onclick="logout()" class="logout-button">
-                Logout
-            </button>
-
+        <div class="sidebar-bottom">
+            <button class="button logout" onclick="logout()">Log out</button>
         </div>
+    </aside>
 
-    </div>
+    <main class="main">
+        <header class="topbar">
+            <div>
+                <h1 style="margin:0">Learning overview</h1>
+                <p>Welcome back! Ready to make progress today?</p>
+            </div>
+            <div class="profile">👤 Student account</div>
+        </header>
 
-    <script>
-        function startExam() {
-            window.location.href = "exam.html";
-        }
+        <section class="hero">
+            <div>
+                <div class="eyebrow">YOUR LEARNING SPACE</div>
+                <h2>Learn something. Achieve something.</h2>
+                <p>Prepare for your next assessment or sharpen your skills with practice.</p>
+                <a class="button" href="practice.html">Explore Practice Zone →</a>
+            </div>
+            <div style="font-size:70px">🎯</div>
+        </section>
 
-        function logout() {
-            window.location.href = "index.html";
-        }
-    </script>
+        <h2 class="section-title">Your learning snapshot</h2>
+        <section class="stats">
+            <article class="stat">
+                <div class="stat-label">Available exam</div>
+                <div class="stat-number">01</div>
+                <div class="stat-note">Ready to attempt</div>
+            </article>
+            <article class="stat">
+                <div class="stat-label">Practice subjects</div>
+                <div class="stat-number">03</div>
+                <div class="stat-note">Programming, DBMS, Networks</div>
+            </article>
+            <article class="stat">
+                <div class="stat-label">Exam duration</div>
+                <div class="stat-number">5 min</div>
+                <div class="stat-note">Timed assessment</div>
+            </article>
+        </section>
 
+        <h2 class="section-title">Explore your workspace</h2>
+        <section class="modules">
+            <article class="module">
+                <div class="module-icon">📚</div>
+                <h3>Practice Zone</h3>
+                <p>Answer topic-based questions and get instant feedback.</p>
+                <a href="practice.html">Start practising →</a>
+            </article>
+            <article class="module">
+                <div class="module-icon">⏱️</div>
+                <h3>Online Examination</h3>
+                <p>Attempt the timed programming assessment.</p>
+                <a href="exam.html">Start exam →</a>
+            </article>
+            <article class="module">
+                <div class="module-icon">📊</div>
+                <h3>Exam Results</h3>
+                <p>Open your examination result page.</p>
+                <a href="result.html">View results →</a>
+            </article>
+        </section>
+
+        <section class="exam-panel">
+            <div>
+                <h3 style="margin:0">Online Programming Test</h3>
+                <p>5 questions · 5 minutes · Automatic scoring</p>
+            </div>
+            <a class="button" href="exam.html">Begin assessment</a>
+        </section>
+    </main>
+</div>
+
+<script>
+    function logout() {
+        window.location.href = "index.html";
+    }
+</script>
 </body>
 </html>

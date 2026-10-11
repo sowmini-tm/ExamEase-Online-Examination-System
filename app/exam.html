@@ -3,126 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Examination</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>ExamEase | Online Assessment</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f3f6fb;
+            color: #182944;
+        }
+
+        header {
+            background: #132541;
+            color: white;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .brand { font-size: 24px; font-weight: 800; }
+        .brand span { color: #54e2ce; }
+
+        .header-label { color: #c5d5e9; font-size: 13px; }
+
+        main {
+            max-width: 950px;
+            margin: 35px auto;
+            padding: 0 20px 35px;
+        }
+
+        .exam-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .exam-heading h1 { margin: 0 0 8px; font-size: 30px; }
+        .exam-heading p { margin: 0; color: #718099; }
+
+        #timer {
+            background: #fff;
+            color: #087f83;
+            border: 1px solid #cde9e6;
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 18px;
+            font-weight: 800;
+            box-shadow: 0 4px 15px rgba(20, 50, 70, .05);
+        }
+
+        .instructions {
+            background: #e8f7f5;
+            color: #17625f;
+            padding: 15px 18px;
+            border-radius: 12px;
+            margin-bottom: 22px;
+            line-height: 1.6;
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid #e1e8f1;
+            border-radius: 16px;
+            padding: 23px;
+            margin-bottom: 17px;
+            box-shadow: 0 5px 18px rgba(30, 50, 80, .04);
+        }
+
+        .question-number {
+            color: #087f83;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.3px;
+        }
+
+        .question-card h2 {
+            font-size: 17px;
+            line-height: 1.6;
+            margin: 10px 0 17px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid #e1e8f1;
+            padding: 13px 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: border-color .2s, background .2s;
+        }
+
+        .option:hover {
+            border-color: #087f83;
+            background: #f2fbfa;
+        }
+
+        .option input {
+            accent-color: #087f83;
+            width: 17px;
+            height: 17px;
+            flex-shrink: 0;
+        }
+
+        .submit-area {
+            background: white;
+            border: 1px solid #e1e8f1;
+            padding: 22px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .submit-area p { color: #718099; margin: 0; }
+
+        button {
+            background: #087f83;
+            color: white;
+            border: 0;
+            border-radius: 10px;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        button:hover { background: #06676b; }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #718099;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            main { margin-top: 24px; padding: 0 12px 25px; }
+            .question-card { padding: 17px; }
+            .exam-heading h1 { font-size: 25px; }
+            .submit-area button { width: 100%; }
+        }
+    </style>
 </head>
-
 <body>
+    <header>
+        <div class="brand">Exam<span>Ease</span></div>
+        <div class="header-label">STUDENT ASSESSMENT PORTAL</div>
+    </header>
 
-    <div class="login-container">
-
-        <div class="login-box">
-
-            <h1>Online Examination</h1>
-            <p class="subtitle">Programming Fundamentals Test</p>
+    <main>
+        <section class="exam-heading">
+            <div>
+                <h1>Programming Fundamentals</h1>
+                <p>Online assessment · 5 questions</p>
+            </div>
             <div id="timer">Time Remaining: 05:00</div>
+        </section>
 
-            <form id="examForm">
-
-                <p><strong>1. Which language is used to create the structure of a web page?</strong></p>
-
-                <label>
-                    <input type="radio" name="q1" value="HTML">
-                    HTML
-                </label>
-
-                <label>
-                    <input type="radio" name="q1" value="Java">
-                    Java
-                </label>
-
-                <label>
-                    <input type="radio" name="q1" value="Python">
-                    Python
-                </label>
-
-                <br>
-
-                <p><strong>2. Which keyword is used to create a class in Java?</strong></p>
-
-                <label>
-                    <input type="radio" name="q2" value="class">
-                    class
-                </label>
-
-                <label>
-                    <input type="radio" name="q2" value="object">
-                    object
-                </label>
-
-                <label>
-                    <input type="radio" name="q2" value="define">
-                    define
-                </label>
-
-                <br>
-
-                <p><strong>3. Which data structure follows FIFO?</strong></p>
-
-                <label>
-                    <input type="radio" name="q3" value="Queue">
-                    Queue
-                </label>
-
-                <label>
-                    <input type="radio" name="q3" value="Stack">
-                    Stack
-                </label>
-
-                <label>
-                    <input type="radio" name="q3" value="Tree">
-                    Tree
-                </label>
-
-                <br>
-
-                <p><strong>4. Which symbol is used for a single-line comment in Java?</strong></p>
-
-                <label>
-                    <input type="radio" name="q4" value="//">
-                    //
-                </label>
-
-                <label>
-                    <input type="radio" name="q4" value="##">
-                    ##
-                </label>
-
-                <label>
-                    <input type="radio" name="q4" value="<!--">
-                    &lt;!--
-                </label>
-
-                <br>
-
-                <p><strong>5. Which method is the starting point of a Java program?</strong></p>
-
-                <label>
-                    <input type="radio" name="q5" value="main">
-                    main()
-                </label>
-
-                <label>
-                    <input type="radio" name="q5" value="start">
-                    start()
-                </label>
-
-                <label>
-                    <input type="radio" name="q5" value="run">
-                    run()
-                </label>
-
-                <br>
-
-                <button type="submit">Submit Exam</button>
-
-            </form>
-
+        <div class="instructions">
+            <strong>Before you begin:</strong> Select one answer for each question.
+            Submit your exam when you finish, or before the timer expires.
         </div>
 
-    </div>
+        <form id="examForm">
+            <section class="question-card">
+                <div class="question-number">QUESTION 01</div>
+                <h2>Which language is used to create the structure of a web page?</h2>
+                <label class="option"><input type="radio" name="q1" value="HTML"> HTML</label>
+                <label class="option"><input type="radio" name="q1" value="Java"> Java</label>
+                <label class="option"><input type="radio" name="q1" value="Python"> Python</label>
+            </section>
+
+            <section class="question-card">
+                <div class="question-number">QUESTION 02</div>
+                <h2>Which keyword is used to create a class in Java?</h2>
+                <label class="option"><input type="radio" name="q2" value="class"> class</label>
+                <label class="option"><input type="radio" name="q2" value="object"> object</label>
+                <label class="option"><input type="radio" name="q2" value="define"> define</label>
+            </section>
+
+            <section class="question-card">
+                <div class="question-number">QUESTION 03</div>
+                <h2>Which data structure follows FIFO?</h2>
+                <label class="option"><input type="radio" name="q3" value="Queue"> Queue</label>
+                <label class="option"><input type="radio" name="q3" value="Stack"> Stack</label>
+                <label class="option"><input type="radio" name="q3" value="Tree"> Tree</label>
+            </section>
+
+            <section class="question-card">
+                <div class="question-number">QUESTION 04</div>
+                <h2>Which symbol is used for a single-line comment in Java?</h2>
+                <label class="option"><input type="radio" name="q4" value="//"> //</label>
+                <label class="option"><input type="radio" name="q4" value="##"> ##</label>
+                <label class="option"><input type="radio" name="q4" value="*<!--">&lt;!--</label>
+            </section>
+
+            <section class="question-card">
+                <div class="question-number">QUESTION 05</div>
+                <h2>Which method is the starting point of a Java program?</h2>
+                <label class="option"><input type="radio" name="q5" value="main"> main()</label>
+                <label class="option"><input type="radio" name="q5" value="start"> start()</label>
+                <label class="option"><input type="radio" name="q5" value="run"> run()</label>
+            </section>
+
+            <section class="submit-area">
+                <p>Review your selections before submitting.</p>
+                <button type="submit">Submit Examination →</button>
+            </section>
+        </form>
+    </main>
+
+    <footer>ExamEase · Learn. Practise. Improve.</footer>
 
     <script src="js/exam.js"></script>
-
 </body>
 </html>
